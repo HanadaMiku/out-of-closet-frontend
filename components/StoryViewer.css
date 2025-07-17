@@ -1,0 +1,168 @@
+/* StoryViewer.css */
+
+.story-viewer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--overlay-bg); /* Semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20; /* Above everything else */
+    backdrop-filter: blur(5px); /* Optional: blur background */
+    animation: fadeInOverlay 0.3s ease-out;
+}
+
+.story-viewer-content {
+    background-color: var(--bg-dark); /* Dark background for immersion */
+    color: var(--text-light);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 900px;
+    height: 80%; /* Adjust height as needed */
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* For contained content */
+    animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Pop-in effect */
+}
+
+.story-viewer-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    border: 2px solid var(--text-light);
+    color: var(--text-light);
+    font-size: 1.5rem;
+    padding: 5px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2; /* Above other content */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.story-viewer-close-button:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--text-dark);
+}
+
+.story-display {
+    flex-grow: 1; /* Takes up available space */
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.story-media {
+    flex: 2; /* Takes more space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure media fits */
+}
+
+.story-media img,
+.story-media video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Maintain aspect ratio */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.story-persona {
+    flex: 1; /* Takes less space */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Persona at bottom right */
+    padding-bottom: 20px; /* Space from bottom for persona */
+}
+
+.story-persona img {
+    max-width: 100%;
+    max-height: 100%; /* Adjust as needed for persona height */
+    object-fit: contain;
+    image-rendering: pixelated; /* If you want a retro pixel art look for personas */
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5)); /* Shadow for persona */
+}
+
+.story-subtitle-box {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for text box */
+    padding: 20px 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* Animations */
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive adjustments for StoryViewer */
+@media (max-width: 768px) {
+    .story-viewer-content {
+        height: 90%;
+        max-width: 95%;
+        padding: 15px;
+    }
+    .story-display {
+        flex-direction: column; /* Stack media and persona on smaller screens */
+        gap: 10px;
+        padding: 10px;
+    }
+    .story-media {
+        flex: none; /* Reset flex */
+        width: 100%; /* Full width */
+        height: 60%; /* Allocate height */
+    }
+    .story-persona {
+        flex: none; /* Reset flex */
+        width: 100%; /* Full width */
+        height: 40%; /* Allocate height */
+        align-items: center; /* Center persona if stacked */
+        padding-bottom: 0;
+    }
+    .story-subtitle-box {
+        font-size: 1rem;
+        padding: 15px 20px;
+    }
+    .story-viewer-close-button {
+        font-size: 1.2rem;
+        padding: 3px 8px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .story-viewer-content {
+        border-radius: 10px;
+    }
+    .story-media {
+        height: 50%;
+    }
+    .story-persona {
+        height: 30%;
+    }
+    .story-subtitle-box {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+}
